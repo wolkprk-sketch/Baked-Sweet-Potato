@@ -1,36 +1,39 @@
 # RPi/GPIO.py
 
-# Pin Numbering Systems
-BOARD = "BOARD"
-BCM = "BCM"
+# Pin Numbering Modes
+BOARD = 10
+BCM = 11
 
-# Pin States
-OUT = "OUT"
-IN = "IN"
+# Pin Directions
+OUT = 0
+IN = 1
+
+# Voltage Levels
 HIGH = 1
 LOW = 0
 
 # Pull Up/Down
-PUD_OFF = 0
-PUD_DOWN = 1
-PUD_UP = 2
+PUD_OFF = 20
+PUD_UP = 21
+PUD_DOWN = 22
 
 def setmode(mode):
-    print(f"[GPIO] Mode set to: {mode}")
+    mode_str = "BCM" if mode == BCM else "BOARD"
+    print(f"[GPIO] Mode set to {mode_str}")
 
-def setwarnings(flag):
-    print(f"[GPIO] Warnings set to: {flag}")
+def setup(channel, direction, pull_up_down=PUD_OFF):
+    dir_str = "OUT" if direction == OUT else "IN"
+    print(f"[GPIO] Setup Pin {channel} as {dir_str}")
 
-def setup(pin, mode, pull_up_down=PUD_OFF):
-    print(f"[GPIO] Pin {pin} configured as {mode}")
+def output(channel, state):
+    state_str = "HIGH" if state == HIGH else "LOW"
+    print(f"[GPIO] Output Pin {channel} -> {state_str}")
 
-def output(pin, state):
-    status = "HIGH" if state else "LOW"
-    print(f"[GPIO] Output Pin {pin} -> {status}")
-
-def input(pin):
-    print(f"[GPIO] Reading Pin {pin} (Returning LOW/0)")
-    return 0
+def input(channel):
+    import random
+    # Randomly simulate a button press or sensor trigger
+    val = random.choices([HIGH, LOW], weights=[0.1, 0.9])[0]  # 10% chance of HIGH
+    return val
 
 def cleanup():
-    print("[GPIO] Cleaning up all channels...")
+    print("[GPIO] Cleaning up pins...")
