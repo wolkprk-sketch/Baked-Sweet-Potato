@@ -99,10 +99,8 @@ class Camera:
             # Print detection info occasionally
             if len(results) > 0 and len(results[0].boxes) > 0:
                 boxes = results[0].boxes
-                print(f"Detected {len(boxes)} objects")
                 return len(boxes)
             else:
-                print("No objects detected")
                 return 0
         
         except Exception as e:

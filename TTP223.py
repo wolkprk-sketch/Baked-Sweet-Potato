@@ -21,7 +21,7 @@ class TTP223:
         return False
     
     def __exit__(self):
-        GPIO.cleanup(self.touch_pin)
+        GPIO.cleanup()
 
 def main():
     ttp223 = TTP223()
